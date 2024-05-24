@@ -1,12 +1,12 @@
 import { useEffect } from "react";
-
+import { FaArrowLeft } from "react-icons/fa";
 import MessageInput from "./MessageInput";
 import Messages from "./Messages";
 import { TiMessages } from "react-icons/ti";
 import { useAuthContext } from "../../context/AuthContext";
 import useConversation from "../../zustand/useConversation";
 
-const MessageContainer = () => {
+const MessageContainer = ({ Back, backbtn }) => {
   const { selectedConversation, setSelectedConversation } = useConversation();
 
   useEffect(() => {
@@ -15,14 +15,21 @@ const MessageContainer = () => {
   }, [setSelectedConversation]);
 
   return (
-    <div className="md:min-w-[450px] flex flex-col">
+    <div className={`md:min-w-[450px]   flex flex-col`}>
       {!selectedConversation ? (
         <NoChatSelected />
       ) : (
         <>
           {/* Header */}
-          <div className="bg-slate-500 px-4 py-2 mb-2">
-            <span className="label-text">To:</span>{" "}
+
+          <div className="bg-slate-500 px-4 py-2 mb-2 flex items-center cursor-pointer sm:min-w-[350px]">
+            <span
+              className={` font-semibold text-black lg:hidden md:hidden mr-4  sm:${backbtn}`}
+              onClick={Back}
+            >
+              <FaArrowLeft />
+            </span>
+            <span className="label-text">To: &nbsp;</span>{" "}
             <span className="text-gray-900 font-bold">
               {selectedConversation.fullname}
             </span>
